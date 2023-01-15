@@ -37,10 +37,7 @@ app.use((req, res, next) => {
 
 app.get('/todos', async (req, res) => {
     const todos = await Todo.find();
-    res.send({
-        todos: todos,
-        status: 200,
-    });
+    res.send(todos);
 });
 
 // Create a new Todo item
