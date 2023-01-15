@@ -17,7 +17,7 @@ const Todo = mongoose.model('Todo', {
 const app = express();
 
 // Use body-parser to parse JSON request bodies
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(cors({
     origin: ['http://localhost:3000', 'https://todo-snowy-chi.vercel.app'],
     credentials: true,
@@ -36,6 +36,9 @@ app.use((req, res, next) => {
 // app.use('/', express.static(path.resolve(path.join(__dirname, '../.next'))));
 
 app.get('/todos', async (req, res) => {
+    // find all todos in the database
+
+
     const todos = await Todo.find();
     res.send({
         todos: todos,
@@ -50,19 +53,22 @@ app.post('/todos', async (req, res) => {
         isCompleted: req.body.isCompleted,
     });
     await todo.save();
-    res.json(todo);
+    res.send(todo);
 });
 
 // Update a Todo item
 app.put('/todos/:id', async (req, res) => {
     const todo = await Todo.findByIdAndUpdate(req.params.id, req.body);
-    res.json(todo);
+    res.send(todo);
 });
 
 // Delete a Todo item
 app.delete('/todos/:id', async (req, res) => {
     await Todo.findByIdAndRemove(req.params.id);
-    res.sendStatus(200);
+    res.send({
+        message: 'Todo deleted!',
+        status: 200,
+    });
 });
 
 app.listen(PORT, () => {
