@@ -19,17 +19,17 @@ const app = express();
 // Use body-parser to parse JSON request bodies
 app.use(bodyParser.json());
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://todo-snowy-chi.vercel.app/'],
+    origin: ['http://localhost:3000', 'https://todo-snowy-chi.vercel.app'],
     credentials: true,
 }));
 
 app.use(morgan('dev'));
 // Get all Todo items
-// app.use((req, res, next) => {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 
 
