@@ -19,7 +19,7 @@ const app = express();
 // Use body-parser to parse JSON request bodies
 app.use(bodyParser.json());
 app.use(cors({
-    origin: ['http://localhost:3000'],
+    origin: ['http://localhost:3000','https://todo-snowy-chi.vercel.app'],
     credentials: true,
 }));
 
