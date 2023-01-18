@@ -35,15 +35,17 @@ app.use(morgan('dev'));
 
 // app.use('/', express.static(path.resolve(path.join(__dirname, '../.next'))));
 
-app.get('/todos', async (req, res) => {
+app.get('/todos', (req, res) => {
     // find all todos in the database
-
-
-    const todos = await Todo.find();
-    res.send({
-        todos: todos,
-        status: 200,
+    Todo.find({}, function (err, data) {
+        if (!err) {
+            res.send({
+                data: data,
+                status: 200
+            })
+        }
     });
+
 });
 
 // Create a new Todo item
